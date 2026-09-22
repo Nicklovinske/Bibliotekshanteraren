@@ -1,6 +1,5 @@
 package org.example;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 
 public class Library {
@@ -42,9 +41,9 @@ public class Library {
         IO.println("Book added successfully.");
     }
 
-    public void borrowBook(int idNumber, String isbn){
+    public void borrowBook(int idNumber, String isbn, String title){
         if (!isBookAvailable(isbn)){
-            IO.println("Sorry " + book.title + " is not available for borrowing.");
+            IO.println("Sorry " + title + " is not available for borrowing.");
             return;
         }
 
@@ -70,7 +69,7 @@ public class Library {
         IO.println("Fantastic! Book loaned to " + member.getName() + ". Please return by " + LocalDate.now().plusDays(14));
     }
 
-    public void returnBook (int idNumber, String isbn) {
+    public void returnBook (int idNumber, String isbn, String title) {
         for (int i = 0; i < loanCount; i++) {
             if (activeLoans[i].isbn().equals(isbn) && activeLoans[i].idNumber() == idNumber) {
                 Member member = findMemberById(idNumber);
@@ -80,7 +79,7 @@ public class Library {
                 activeLoans[i] = activeLoans[loanCount - 1];
                 activeLoans[loanCount - 1] = null;
                 loanCount--;
-                IO.println("Thank you for returning " + book.title + ".");
+                IO.println("Thank you for returning " + title + ".");
                 return;
             }
         }

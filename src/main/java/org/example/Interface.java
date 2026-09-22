@@ -42,18 +42,18 @@ public class Interface {
                     IO.println("Enter the title of the book: ");
                     String title = IO.readln();
                     IO.println("Enter the ID of the member: ");
-                    int idNumber = Integer.parseInt(IO.readln());
+                    idNumber = Integer.parseInt(IO.readln());
 
-                    library.loanBook(title, id);
+                    library.loanBook(title, idNumber);
                     break;
                 case 4:
                     IO.println("---Return Loaned Book---");
                     IO.println("Enter the title of the book: ");
                     title = IO.readln();
                     IO.println("Enter the ID of the member: ");
-                    id = Integer.parseInt(IO.readln());
+                    idNumber = Integer.parseInt(IO.readln());
 
-                    library.returnLoanedBook(title, id);
+                    library.returnLoanedBook(title, idNumber);
                     break;
                 case 5:
                     IO.println("--- Search for a Book ---");
