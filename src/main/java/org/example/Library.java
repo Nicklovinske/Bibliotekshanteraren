@@ -1,6 +1,7 @@
 package org.example;
 
 import java.awt.print.Book;
+import java.time.LocalDate;
 
 public class Library {
     private Member[] members = new Member[10];
@@ -21,10 +22,67 @@ public class Library {
         return true;
     }
 
+    public void addBook(String isbn, String title, String author){
+        if (bookCount >= books.length) {
+            Book[] books2 = new Book[books.length * 2];
+            for (int i = 0; i < books.length; i++) {
+                books2[i] = books[i];
+            }
+            books = books2;
+        }
+        for (int i = 0; i < bookCount; i++){
+            if (books[i].isbn().equals(isbn)) {
+                IO.println("Book with ISBN " + isbn + " already exists.");
+                return;
+            }
+        }
+        books[bookCount] = new Book(isbn, title, author);
+        bookCount++;
+
+        IO.println("Book added successfully.");
+    }
+
     public void borrowBook(int idNumber, String isbn){
         if (!isBookAvailable(isbn)){
-            IO.println("Sorry " + title + " is not available for borrowing.");
+            IO.println("Sorry " + book.title + " is not available for borrowing.");
             return;
+        }
+
+        Member member = findMemberById(idNumber);
+        if (member == null) {
+            IO.println("Member with ID number " + idNumber + " does not exist.");
+            return;
+        }
+
+        if (loanCount >= activeLoans.length) {
+            Loan[] activeLoans2 = new Loan[activeLoans.length * 2];
+            for (int i = 0; i < activeLoans.length; i++) {
+                activeLoans2[i] = activeLoans[i];
+            }
+            activeLoans = activeLoans2;
+        }
+
+        activeLoans[loanCount] = new Loan(idNumber, isbn);
+        loanCount++;
+
+        member.setActiveLoans(member.getActiveLoans() + 1);
+
+        IO.println("Fantastic! Book loaned to " + member.getName() + ". Please return by " + LocalDate.now().plusDays(14));
+    }
+
+    public void returnBook (int idNumber, String isbn) {
+        for (int i = 0; i < loanCount; i++) {
+            if (activeLoans[i].isbn().equals(isbn) && activeLoans[i].idNumber() == idNumber) {
+                Member member = findMemberById(idNumber);
+                if (member != null) {
+                    member.setActiveLoans(member.getActiveLoans() - 1);
+                }
+                activeLoans[i] = activeLoans[loanCount - 1];
+                activeLoans[loanCount - 1] = null;
+                loanCount--;
+                IO.println("Thank you for returning " + book.title + ".");
+                return;
+            }
         }
     }
 
@@ -69,5 +127,3 @@ public class Library {
     }
 }
 
-record book(String isbn, String title, String author) {
-}
