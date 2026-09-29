@@ -12,7 +12,7 @@ public class Member {
 
     }
 
-    public Member(String name, int idNumber){
+    public Member(String name, int idNumber) {
         this.name = name;
         this.idNumber = idNumber;
     }

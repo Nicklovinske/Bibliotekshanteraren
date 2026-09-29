@@ -8,7 +8,7 @@ public class Interface {
         IO.println("Welcome to the archives of Minas Tirith.");
 
         while (running) {
-            IO.println("\n--- Main Menu ---");
+            IO.println("--- Main Menu ---");
             IO.println("1. Add a book.");
             IO.println("2. Register member.");
             IO.println("3. Loan book.");
@@ -25,17 +25,27 @@ public class Interface {
                     IO.println("---Add New Book---");
                     IO.println("Enter the title of the book: ");
                     String title = IO.readln();
+
                     IO.println("Enter the author of the book: ");
                     String author = IO.readln();
-                    IO.println("Enter the ISBN of the book: ");
-                    String isbn = IO.readln();
-                    library.addBook(title, author, isbn);
+
+                    String newIsbn = "";
+                    while (true) {
+                        IO.println("Enter the ISBN of the book: ");
+                        newIsbn = IO.readln();
+                        if (newIsbn.matches("[0-9]+"))
+                            break;
+                        else
+                            IO.println("Invalid ISBN. ISBN must only consist of numbers.");
+                    }
+                    library.addBook(newIsbn, title, author);
                     break;
 
                 case 2:
                     IO.println("---Register New Member---");
                     IO.println("Enter name: ");
                     String name = IO.readln();
+
                     IO.println("Enter a 4-digit ID code. ");
                     int idNumber = Integer.parseInt(IO.readln());
 
@@ -48,11 +58,24 @@ public class Interface {
                     IO.println("Enter your 4-digit ID code: ");
                     int borrowMemberId = Integer.parseInt(IO.readln());
 
-                    IO.println("Enter the ISBN of the book you would like to loan: ");
-                    String borrowIsbn = IO.readln();
+                    Member member = library.findMemberById(borrowMemberId);
+                    if (member == null) {
+                        IO.println("Member not found.");
+                        break;
+                    }
+                    String borrowIsbn = "";
+                    while (true) {
+                        IO.println("Enter the ISBN of the book you would like to loan: ");
+                        borrowIsbn = IO.readln();
+
+                        if (borrowIsbn.matches("[0-9]+"))
+                            break;
+                        else
+                            IO.println("Invalid ISBN. ISBN must only consist of numbers.");
+                    }
 
 
-                    library.borrowBook(borrowMemberId, borrowIsbn);
+                    library.borrowBook(borrowMemberId, borrowIsbn, null);
                     break;
 
                 case 4:
@@ -60,10 +83,25 @@ public class Interface {
                     IO.println("Enter your 4-digit ID code: ");
                     int returnMemberId = Integer.parseInt(IO.readln());
 
-                    IO.println("Enter the ISBN of the book you would like to return: ");
-                    String returnIsbn = IO.readln();
+                    member = library.findMemberById(returnMemberId);
+                    if (member == null) {
+                        IO.println("Member not found.");
+                        break;
+                    }
 
-                    library.returnBook(returnMemberId, returnIsbn);
+                    String returnIsbn = "";
+                    while (true) {
+                        IO.println("Enter the ISBN of the book you would like to return: ");
+                        returnIsbn = IO.readln();
+
+                        if (returnIsbn.matches("[0-9]+"))
+                            break;
+                        else
+                            IO.println("Invalid ISBN. ISBN must only consist of numbers.");
+
+                    }
+
+                    library.returnBook(returnMemberId, returnIsbn, null);
                     break;
 
                 case 5:

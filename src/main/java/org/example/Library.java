@@ -12,6 +12,12 @@ public class Library {
     private Loan[] activeLoans = new Loan[10];
     private int loanCount = 0;
 
+    public Library() {
+        addBook("1234", "The Fellowship of the Ring", "J.R.R. Tolkien");
+        addBook("5678", "The Two Towers", "J.R.R. Tolkien");
+        addBook("9101", "The Return of the King", "J.R.R. Tolkien");
+    }
+
     public boolean isBookAvailable(String isbn) {
         for (int i = 0; i < loanCount; i++) {
             if (activeLoans[i].isbn().equals(isbn)) {
@@ -21,7 +27,7 @@ public class Library {
         return true;
     }
 
-    public void addBook(String isbn, String title, String author){
+    public void addBook(String isbn, String title, String author) {
         if (bookCount >= books.length) {
             Book[] books2 = new Book[books.length * 2];
             for (int i = 0; i < books.length; i++) {
@@ -29,7 +35,7 @@ public class Library {
             }
             books = books2;
         }
-        for (int i = 0; i < bookCount; i++){
+        for (int i = 0; i < bookCount; i++) {
             if (books[i].isbn().equals(isbn)) {
                 IO.println("Book with ISBN " + isbn + " already exists.");
                 return;
@@ -39,10 +45,11 @@ public class Library {
         bookCount++;
 
         IO.println("Book added successfully.");
+
     }
 
-    public void borrowBook(int idNumber, String isbn, String title){
-        if (!isBookAvailable(isbn)){
+    public void borrowBook(int idNumber, String isbn, String title) {
+        if (!isBookAvailable(isbn)) {
             IO.println("Sorry " + title + " is not available for borrowing.");
             return;
         }
@@ -69,7 +76,7 @@ public class Library {
         IO.println("Fantastic! Book loaned to " + member.getName() + ". Please return by " + LocalDate.now().plusDays(14));
     }
 
-    public void returnBook (int idNumber, String isbn, String title) {
+    public void returnBook(int idNumber, String isbn, String title) {
         for (int i = 0; i < loanCount; i++) {
             if (activeLoans[i].isbn().equals(isbn) && activeLoans[i].idNumber() == idNumber) {
                 Member member = findMemberById(idNumber);
@@ -119,42 +126,42 @@ public class Library {
         return null;
     }
 
-    public void searchBooks(String query){
+    public void searchBooks(String query) {
         IO.println("--- Search Results ---");
         boolean found = false;
 
         String lowerCaseQuery = query.toLowerCase();
 
-        for(int i = 0; i < bookCount; i++){
+        for (int i = 0; i < bookCount; i++) {
             Book book = books[i];
 
-            if (book.title().toLowerCase().contains(lowerCaseQuery) || book.author().toLowerCase().contains(lowerCaseQuery)){
-               String status = isBookAvailable(book.isbn()) ? "Available" : "Not Available";
-               IO.println(book.title() + " by " + book.author() + " - " + status);
-               found = true;
+            if (book.title().toLowerCase().contains(lowerCaseQuery) || book.author().toLowerCase().contains(lowerCaseQuery)) {
+                String status = isBookAvailable(book.isbn()) ? "Available" : "Not Available";
+                IO.println(book.title() + " by " + book.author() + " - " + status);
+                found = true;
             }
-            if (!found){
+            if (!found) {
                 IO.println("No books found matching the query.");
             }
         }
     }
 
-    public void listAllBooks(){
+    public void listAllBooks() {
         IO.println("--- Library Inventory ---");
-        if (bookCount == 0){
+        if (bookCount == 0) {
             IO.println("The library is empty.");
             return;
         }
-        for (int i = 0; i < bookCount; i++){
+        for (int i = 0; i < bookCount; i++) {
             Book book = books[i];
             String status = isBookAvailable(book.isbn()) ? "Available" : "Not Available";
             IO.println(book.title() + " by " + book.author() + " (ISBN: " + book.isbn() + ") - " + " [" + status + "]");
         }
     }
 
-    //public void loanBook(String title, int id) {
-    }
 
-    //public void returnLoanedBook(String title, int id) {
+}
+
+
 
 
