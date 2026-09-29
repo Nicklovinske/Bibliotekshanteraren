@@ -119,6 +119,39 @@ public class Library {
         return null;
     }
 
+    public void searchBooks(String query){
+        IO.println("--- Search Results ---");
+        boolean found = false;
+
+        String lowerCaseQuery = query.toLowerCase();
+
+        for(int i = 0; i < bookCount; i++){
+            Book book = books[i];
+
+            if (book.title().toLowerCase().contains(lowerCaseQuery) || book.author().toLowerCase().contains(lowerCaseQuery)){
+               String status = isBookAvailable(book.isbn()) ? "Available" : "Not Available";
+               IO.println(book.title() + " by " + book.author() + " - " + status);
+               found = true;
+            }
+            if (!found){
+                IO.println("No books found matching the query.");
+            }
+        }
+    }
+
+    public void listAllBooks(){
+        IO.println("--- Library Inventory ---");
+        if (bookCount == 0){
+            IO.println("The library is empty.");
+            return;
+        }
+        for (int i = 0; i < bookCount; i++){
+            Book book = books[i];
+            String status = isBookAvailable(book.isbn()) ? "Available" : "Not Available";
+            IO.println(book.title() + " by " + book.author() + " (ISBN: " + book.isbn() + ") - " + " [" + status + "]");
+        }
+    }
+
     public void loanBook(String title, int id) {
     }
 

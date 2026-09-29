@@ -1,11 +1,8 @@
 package org.example;
 
-import java.util.Scanner;
-
 public class Interface {
     static void main() {
         Library library = new Library();
-        Scanner scanner = new Scanner(IO.readln());
         boolean running = true;
 
         IO.println("Welcome to the archives of Minas Tirith.");
@@ -25,9 +22,16 @@ public class Interface {
 
             switch (choice) {
                 case 1:
+                    IO.println("---Add New Book---");
                     IO.println("Enter the title of the book: ");
-                    //Todo: prompt for bbook details and create library.addBook()
+                    String title = IO.readln();
+                    IO.println("Enter the author of the book: ");
+                    String author = IO.readln();
+                    IO.println("Enter the ISBN of the book: ");
+                    String isbn = IO.readln();
+                    library.addBook(title, author, isbn);
                     break;
+
                 case 2:
                     IO.println("---Register New Member---");
                     IO.println("Enter name: ");
@@ -37,39 +41,52 @@ public class Interface {
 
                     library.registerNewMember(name, idNumber);
                     break;
+
                 case 3:
                     IO.println("---Loan Book---");
-                    IO.println("Enter the title of the book: ");
-                    String title = IO.readln();
-                    IO.println("Enter the ID of the member: ");
-                    idNumber = Integer.parseInt(IO.readln());
 
-                    library.loanBook(title, idNumber);
+                    IO.println("Enter your 4-digit ID code: ");
+                    int borrowMemberId = Integer.parseInt(IO.readln());
+
+                    IO.println("Enter the ISBN of the book you would like to loan: ");
+                    String borrowIsbn = IO.readln();
+
+
+                    library.loanBook(borrowMemberId, borrowIsbn);
                     break;
+
                 case 4:
                     IO.println("---Return Loaned Book---");
-                    IO.println("Enter the title of the book: ");
-                    title = IO.readln();
-                    IO.println("Enter the ID of the member: ");
-                    idNumber = Integer.parseInt(IO.readln());
+                    IO.println("Enter your 4-digit ID code: ");
+                    int returnMemberId = Integer.parseInt(IO.readln());
 
-                    library.returnLoanedBook(title, idNumber);
+                    IO.println("Enter the ISBN of the book you would like to return: ");
+                    String returnIsbn = IO.readln();
+
+                    library.returnLoanedBook(returnMemberId, returnIsbn);
                     break;
+
                 case 5:
                     IO.println("--- Search for a Book ---");
+                    IO.println("Enter an author or title to search: ");
+                    String query = IO.readln();
+                    library.searchBooks(query);
                     break;
+
                 case 6:
                     IO.println("--- Check Inventory ---");
+                    library.listAllBooks();
                     break;
+
                 case 7:
                     IO.println("--- Exit ---");
                     running = false;
                     break;
+
                 default:
                     IO.println("Invalid option. Please enter a number between 1 and 7.");
             }
         }
-        scanner.close();
 
     }
 }
