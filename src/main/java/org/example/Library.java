@@ -152,10 +152,9 @@ public class Library {
         }
     }
 
-    public void loanBook(String title, int id) {
+    //public void loanBook(String title, int id) {
     }
 
-    public void returnLoanedBook(String title, int id) {
-    }
-}
+    //public void returnLoanedBook(String title, int id) {
+
 

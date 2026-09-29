@@ -52,7 +52,7 @@ public class Interface {
                     String borrowIsbn = IO.readln();
 
 
-                    library.loanBook(borrowMemberId, borrowIsbn);
+                    library.borrowBook(borrowMemberId, borrowIsbn);
                     break;
 
                 case 4:
@@ -63,7 +63,7 @@ public class Interface {
                     IO.println("Enter the ISBN of the book you would like to return: ");
                     String returnIsbn = IO.readln();
 
-                    library.returnLoanedBook(returnMemberId, returnIsbn);
+                    library.returnBook(returnMemberId, returnIsbn);
                     break;
 
                 case 5:
