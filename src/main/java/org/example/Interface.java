@@ -18,7 +18,13 @@ public class Interface {
             IO.println("7. Exit.");
             IO.println("Please choose an option (1-7): ");
 
-            int choice = Integer.parseInt(IO.readln());
+            int choice = 0;
+            try {
+                choice = Integer.parseInt(IO.readln());
+            } catch (NumberFormatException e) {
+                IO.println("Invalid input. Please enter a number between 1 and 7.");
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -46,8 +52,14 @@ public class Interface {
                     IO.println("Enter name: ");
                     String name = IO.readln();
 
-                    IO.println("Enter a 4-digit ID code. ");
-                    int idNumber = Integer.parseInt(IO.readln());
+                    IO.println("Enter your 4-digit ID code. ");
+                    int idNumber = 0;
+                    try {
+                        choice = Integer.parseInt(IO.readln());
+                    } catch (NumberFormatException e) {
+                        IO.println("Invalid input. Please enter a 4-digit number.");
+                        continue;
+                    }
 
                     library.registerNewMember(name, idNumber);
                     break;
@@ -56,7 +68,14 @@ public class Interface {
                     IO.println("---Loan Book---");
 
                     IO.println("Enter your 4-digit ID code: ");
-                    int borrowMemberId = Integer.parseInt(IO.readln());
+
+                    int borrowMemberId = 0;
+                    try {
+                        choice = Integer.parseInt(IO.readln());
+                    } catch (NumberFormatException e) {
+                        IO.println("Invalid input. Please enter a 4-digit number.");
+                        continue;
+                    }
 
                     Member member = library.findMemberById(borrowMemberId);
                     if (member == null) {
@@ -81,7 +100,14 @@ public class Interface {
                 case 4:
                     IO.println("---Return Loaned Book---");
                     IO.println("Enter your 4-digit ID code: ");
-                    int returnMemberId = Integer.parseInt(IO.readln());
+
+                    int returnMemberId = 0;
+                    try {
+                        choice = Integer.parseInt(IO.readln());
+                    } catch (NumberFormatException e) {
+                        IO.println("Invalid input. Please enter a 4-digit number.");
+                        continue;
+                    }
 
                     member = library.findMemberById(returnMemberId);
                     if (member == null) {

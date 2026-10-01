@@ -126,16 +126,16 @@ public class Library {
         return null;
     }
 
-    public void searchBooks(String query) {
+    public void searchBooks(String search) {
         IO.println("--- Search Results ---");
         boolean found = false;
 
-        String lowerCaseQuery = query.toLowerCase();
+        String lowerCase = search.toLowerCase();
 
         for (int i = 0; i < bookCount; i++) {
             Book book = books[i];
 
-            if (book.title().toLowerCase().contains(lowerCaseQuery) || book.author().toLowerCase().contains(lowerCaseQuery)) {
+            if (book.title().toLowerCase().contains(lowerCase) || book.author().toLowerCase().contains(lowerCase)) {
                 String status = isBookAvailable(book.isbn()) ? "Available" : "Not Available";
                 IO.println(book.title() + " by " + book.author() + " - " + status);
                 found = true;
